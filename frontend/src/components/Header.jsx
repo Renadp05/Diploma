@@ -1,0 +1,23 @@
+
+export default function Header() {
+  return (
+    <div style={{
+      display: "flex",
+      alignItems: "center",
+      gap: "12px",
+      padding: "12px 24px",
+      backgroundColor: "#0d1117",
+      borderBottom: "1px solid #26a17b"
+    }}>
+      <img
+        src="/assets/usdt-logo.png"
+        alt="USDT"
+        style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+      />
+
+      <h1 style={{ color: "white", margin: 0 }}>
+        SecureChain <span style={{ color: "#26a17b" }}>TRC-20 Analyzer</span>
+      </h1>
+    </div>
+  );
+}
