@@ -4,14 +4,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.settings import get_setting
 from app.utils.database import Base, engine
 from app.middleware.audit import AuditMiddleware
-# Routers (shtoji sipas strukturës tënde nëse ndryshojnë)
 from app.routes import auth, dashboard, logs, nft, risk, simulation, transaction
 
 app = FastAPI(title="TRC Backend - Secure Version")
 app.add_middleware(AuditMiddleware)
 
-# CORS
-origins = ["*"]  # mund ta kufizosh më vonë
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,14 +19,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# DB INIT
 Base.metadata.create_all(bind=engine)
 
-# ROUTES
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
-app.include_router(users.router, prefix="/users", tags=["Users"])
-app.include_router(token.router, prefix="/token", tags=["Token"])
-app.include_router(tron.router, prefix="/tron", tags=["Tron"])
+app.include_router(dashboard.router, prefix="/dashboard", tags=["Dashboard"])
+app.include_router(logs.router, prefix="/logs", tags=["Logs"])
+app.include_router(nft.router, prefix="/nft", tags=["NFT"])
+app.include_router(risk.router, prefix="/risk", tags=["Risk"])
+app.include_router(simulation.router, prefix="/simulation", tags=["Simulation"])
+app.include_router(transaction.router, prefix="/transaction", tags=["Transaction"])
 
 
 @app.get("/")
