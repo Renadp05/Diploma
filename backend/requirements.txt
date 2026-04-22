@@ -1,9 +1,10 @@
 fastapi
 uvicorn
 sqlalchemy
-psycopg2-binary
+psycopg[binary]
 python-jose
-passlib[bcrypt]
+passlib
+bcrypt
 boto3
 tronpy
 pydantic
