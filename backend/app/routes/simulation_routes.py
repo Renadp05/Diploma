@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Query
+
 from app.services.tron_sender import get_wallet_info, send_trx
 
 router = APIRouter(prefix="/simulation", tags=["Simulation"])
@@ -12,7 +13,7 @@ def fake_transaction_demo():
         "tx_found": False,
         "address_valid": False,
         "risk_level": "HIGH",
-        "message": "This is simulated data for academic demonstration only"
+        "message": "This is simulated data for academic demonstration only",
     }
 
 
@@ -24,7 +25,7 @@ def real_transaction_demo():
         "tx_found": True,
         "address_valid": True,
         "risk_level": "LOW",
-        "message": "This is simulated data for academic demonstration only"
+        "message": "This is simulated data for academic demonstration only",
     }
 
 
@@ -32,7 +33,7 @@ def real_transaction_demo():
 def compare_demo():
     return {
         "real": real_transaction_demo(),
-        "fake": fake_transaction_demo()
+        "fake": fake_transaction_demo(),
     }
 
 
@@ -44,6 +45,6 @@ def demo_wallet():
 @router.post("/send-demo")
 def send_demo(
     to_address: str = Query(...),
-    amount_sun: int = Query(1000000)
+    amount_sun: int = Query(1000000),
 ):
     return send_trx(to_address=to_address, amount_sun=amount_sun)

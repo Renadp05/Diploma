@@ -1,7 +1,7 @@
-from . import auth_routes
-from . import dashboard_routes
-from . import logs_routes
-from . import nft_routes
-from . import risk_routes
-from . import simulation_routes
-from . import transaction_routes
+from . import auth_routes as auth
+from . import dashboard_routes as dashboard
+from . import logs_routes as logs
+from . import nft_routes as nft
+from . import risk_routes as risk
+from . import simulation_routes as simulation
+from . import transaction_routes as transaction

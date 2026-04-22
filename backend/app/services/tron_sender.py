@@ -37,6 +37,25 @@ def _get_client_and_wallet():
     return client, private_key, sender_address, network
 
 
+def get_wallet_info() -> dict:
+    try:
+        client, _, sender_address, network = _get_client_and_wallet()
+        balance_sun = client.get_account_balance(sender_address)
+
+        return {
+            "status": "success",
+            "network": network,
+            "address": sender_address,
+            "balance_sun": balance_sun,
+            "timestamp": int(time.time()),
+        }
+    except Exception as exc:
+        return {
+            "status": "error",
+            "message": str(exc),
+        }
+
+
 def send_trx(to_address: str, amount_sun: int) -> dict:
     if not to_address:
         return {"status": "error", "message": "to_address is required"}

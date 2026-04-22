@@ -5,7 +5,7 @@ from app.core.settings import get_setting
 from app.utils.database import Base, engine
 from app.middleware.audit import AuditMiddleware
 # Routers (shtoji sipas strukturës tënde nëse ndryshojnë)
-from app.routes import auth, users, token, tron
+from app.routes import auth, dashboard, logs, nft, risk, simulation, transaction
 
 app = FastAPI(title="TRC Backend - Secure Version")
 app.add_middleware(AuditMiddleware)
