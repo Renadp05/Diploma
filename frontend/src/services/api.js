@@ -1,17 +1,41 @@
-import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-const API = axios.create({
-  baseURL: "http://127.0.0.1:8002",
-});
+async function apiRequest(path, options = {}) {
+  const response = await fetch(`${API_URL}${path}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+    },
+    ...options,
+  });
 
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const contentType = response.headers.get("content-type") || "";
+  const data = contentType.includes("application/json")
+    ? await response.json()
+    : await response.text();
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (!response.ok) {
+    throw new Error(
+      typeof data === "string" ? data : data?.message || "Request failed"
+    );
   }
 
-  return config;
-});
+  return data;
+}
 
-export default API;
+export const api = {
+  root: () => apiRequest("/"),
+  fakeSimulation: () => apiRequest("/simulation/fake"),
+  realSimulation: () => apiRequest("/simulation/real"),
+  compareSimulation: () => apiRequest("/simulation/compare"),
+  walletInfo: () => apiRequest("/simulation/wallet"),
+  sendDemo: (to_address, amount_sun = 1000000) =>
+    apiRequest(
+      `/simulation/send-demo?to_address=${encodeURIComponent(
+        to_address
+      )}&amount_sun=${amount_sun}`,
+      {
+        method: "POST",
+      }
+    ),
+};
