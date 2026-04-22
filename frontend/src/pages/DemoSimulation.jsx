@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { api } from "../services/api";
+import API from "../services/api";
 
 function DemoSimulation() {
   const [result, setResult] = useState(null);
@@ -26,11 +26,21 @@ function DemoSimulation() {
     <div>
       <h2>Demo Simulation</h2>
 
-      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
-        <button onClick={() => runAction(api.fakeSimulation)}>Fake</button>
-        <button onClick={() => runAction(api.realSimulation)}>Real</button>
-        <button onClick={() => runAction(api.compareSimulation)}>Compare</button>
-        <button onClick={() => runAction(api.walletInfo)}>Wallet</button>
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          flexWrap: "wrap",
+          marginBottom: "20px",
+        }}
+      >
+        <button onClick={() => runAction(API.fakeSimulation)}>Fake</button>
+        <button onClick={() => runAction(API.realSimulation)}>Real</button>
+        <button onClick={() => runAction(API.compareSimulation)}>Compare</button>
+        <button onClick={() => runAction(API.walletInfo)}>Wallet</button>
+        <button onClick={() => runAction(() => API.sendDemo(toAddress, amountSun))}>
+          Send Demo
+        </button>
       </div>
 
       <div style={{ marginBottom: "20px" }}>
@@ -49,7 +59,7 @@ function DemoSimulation() {
           style={{ width: "120px", marginRight: "10px" }}
         />
         <button
-          onClick={() => runAction(() => api.sendDemo(toAddress, amountSun))}
+          onClick={() => runAction(() => API.sendDemo(toAddress, amountSun))}
         >
           Send Demo
         </button>

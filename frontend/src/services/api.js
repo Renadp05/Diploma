@@ -23,7 +23,7 @@ async function apiRequest(path, options = {}) {
   return data;
 }
 
-export const api = {
+const API = {
   root: () => apiRequest("/"),
   fakeSimulation: () => apiRequest("/simulation/fake"),
   realSimulation: () => apiRequest("/simulation/real"),
@@ -39,3 +39,6 @@ export const api = {
       }
     ),
 };
+
+export default API;
+export { API, apiRequest };
