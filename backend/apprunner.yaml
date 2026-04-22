@@ -5,11 +5,10 @@ build:
   commands:
     build:
       - python3 -m pip install --upgrade pip
+      - pip3 install --no-cache-dir -r requirements.txt
 
 run:
   runtime-version: 3.11
-  pre-run:
-    - pip3 install --no-cache-dir -r requirements.txt
   command: python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
   network:
     port: 8000
