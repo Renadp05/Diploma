@@ -1,0 +1,71 @@
+import os
+from pathlib import Path
+
+from dotenv import load_dotenv
+from tronpy import Tron
+from tronpy.keys import PrivateKey
+from tronpy.providers import HTTPProvider
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+ENV_PATH = BASE_DIR / ".env"
+load_dotenv(dotenv_path=ENV_PATH, override=True)
+
+
+def _get_client():
+    network = os.getenv("TRON_NETWORK", "shasta").strip().lower()
+    api_key = os.getenv("TRON_API_KEY", "").strip()
+
+    if network == "mainnet":
+        provider = HTTPProvider(
+            endpoint_uri="https://api.trongrid.io",
+            api_key=api_key if api_key else None,
+        )
+    else:
+        provider = HTTPProvider(
+            endpoint_uri="https://api.shasta.trongrid.io",
+            api_key=api_key if api_key else None,
+        )
+
+    return Tron(provider=provider), network
+
+
+def _get_private_key():
+    private_key_hex = os.getenv("TRON_PRIVATE_KEY", "").strip().strip('"').strip("'")
+    if not private_key_hex:
+        raise ValueError("TRON_PRIVATE_KEY missing in .env")
+    return PrivateKey(bytes.fromhex(private_key_hex))
+
+
+def get_nft_contract():
+    client, network = _get_client()
+
+    contract_address = os.getenv("NFT_CONTRACT_ADDRESS", "").strip()
+    if not contract_address:
+        raise ValueError("NFT_CONTRACT_ADDRESS missing in .env")
+
+    contract = client.get_contract(contract_address)
+    return client, contract, network
+
+
+def mint_nft():
+    client, contract, network = get_nft_contract()
+    private_key = _get_private_key()
+    owner_address = private_key.public_key.to_base58check_address()
+
+    txn = (
+        contract.functions.mint()
+        .with_owner(owner_address)
+        .fee_limit(200_000_000)
+        .build()
+        .sign(private_key)
+    )
+
+    result = txn.broadcast().wait()
+
+    return {
+        "status": "success",
+        "network": network,
+        "contract_address": contract.contract_address,
+        "owner": owner_address,
+        "result": result,
+    }
