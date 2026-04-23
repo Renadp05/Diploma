@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import API from "../services/api";
+import TokenCard from "../components/TokenCard";
+import tokenMetadata from "../../public/token-metadata.json";
 
 function DemoSimulation() {
   const [result, setResult] = useState(null);
@@ -26,6 +28,15 @@ function DemoSimulation() {
     <div>
       <h2>Demo Simulation</h2>
 
+    <TokenCard
+      name="Tether"
+      symbol="USDT"
+      decimals={6}
+      network="mainnet"
+      contractAddress="TMxxFFfHpD9rtL8FCUAgtV7NDf8Wfv2abX"
+      logoURI="/assets/usdt-logo.png"
+      website="https://diploma-1-eb6y.onrender.com"
+    />
       <div
         style={{
           display: "flex",
