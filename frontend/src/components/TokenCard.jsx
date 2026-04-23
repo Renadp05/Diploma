@@ -4,15 +4,15 @@ function TokenCard({
   name = "Tether",
   symbol = "USDT",
   decimals = 6,
-  network = "mainnet",
-  contractAddress = "PASTE_CONTRACT_ADDRESS_HERE",
+  network = "shasta",
+  contractAddress = "TMxxFFfHpD9rtL8FCUAgtV7NDf8Wfv2abX",
   logoURI = "/assets/usdt-logo.png",
   website = "https://diploma-1-eb6y.onrender.com",
 }) {
   return (
     <div
       style={{
-        border: "1px solid #ddd",
+        border: "1px solid #141212",
         borderRadius: "16px",
         padding: "20px",
         maxWidth: "460px",
