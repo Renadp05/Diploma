@@ -32,7 +32,7 @@ function DemoSimulation() {
       name="Tether"
       symbol="USDT"
       decimals={6}
-      network="mainnet"
+      network="shasta"
       contractAddress="TMxxFFfHpD9rtL8FCUAgtV7NDf8Wfv2abX"
       logoURI="/assets/usdt-logo.png"
       website="https://diploma-1-eb6y.onrender.com"
