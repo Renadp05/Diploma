@@ -3,7 +3,7 @@
   "symbol": "USDT",
   "decimals": 6,
   "description": "Tether in TRC-20",
-  "contractAddress": "TMxxFFfHpD9rtL8FCUAgtV7NDf8Wfv2abX",
+  "contractAddress": "TPn2caqoPetZXvgPrvShDM8XVPM3sVrvhA",
   "network": "shasta",
   "logoURI": "/assets/usdt-logo.png",
   "website": "https://diploma-1-eb6y.onrender.com"
